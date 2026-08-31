@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesIdRouteImport } from './routes/services.$id'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
+  id: '/projects/',
+  path: '/projects/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/services/$id': typeof ServicesIdRoute
+  '/projects/': typeof ProjectsIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/services/$id': typeof ServicesIdRoute
+  '/projects': typeof ProjectsIndexRoute
   '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,23 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/services/$id': typeof ServicesIdRoute
+  '/projects/': typeof ProjectsIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/services/$id' | '/services/'
+  fullPaths: '/' | '/about' | '/services/$id' | '/projects/' | '/services/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/services/$id' | '/services'
-  id: '__root__' | '/' | '/about' | '/services/$id' | '/services/'
+  to: '/' | '/about' | '/services/$id' | '/projects' | '/services'
+  id:
+    '__root__' | '/' | '/about' | '/services/$id' | '/projects/' | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ServicesIdRoute: typeof ServicesIdRoute
+  ProjectsIndexRoute: typeof ProjectsIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
@@ -83,6 +94,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/': {
+      id: '/projects/'
+      path: '/projects'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/': {
@@ -106,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ServicesIdRoute: ServicesIdRoute,
+  ProjectsIndexRoute: ProjectsIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport
