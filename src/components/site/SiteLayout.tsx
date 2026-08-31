@@ -103,8 +103,8 @@ export function Modal({
   open: boolean;
   onClose: () => void;
   children: ReactNode;
-  title?: string;
-  wide?: boolean;
+  title?: string | undefined;
+  wide?: boolean | undefined;
 }) {
   useEffect(() => {
     if (!open) return;
