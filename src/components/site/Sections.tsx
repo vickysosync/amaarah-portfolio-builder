@@ -266,8 +266,8 @@ export function Testimonials() {
         </div>
       </section>
     );
+  }
   const t = list[Math.min(i, list.length - 1)]!;
-  const t = list[Math.min(i, list.length - 1)];
   return (
     <section className="section-y">
       <div className="container-x">
