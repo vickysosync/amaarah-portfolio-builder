@@ -29,7 +29,7 @@ export default function HeroSlider() {
     );
   }
 
-  const current = active[Math.min(index, active.length - 1)];
+  const current = active[Math.min(index, active.length - 1)]!;
 
   return (
     <section className="relative isolate min-h-[88vh] overflow-hidden bg-navy">
